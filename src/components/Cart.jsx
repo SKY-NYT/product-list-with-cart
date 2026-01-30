@@ -2,7 +2,7 @@ import { Text } from "./Text";
 import EmptyCartImage from "../assets/images/illustration-empty-cart.svg?react";
 import CarbonIcon from "../assets/images/icon-carbon-neutral.svg?react";
 import { Buttons } from "./Buttons";
-export function Cart({ cart, onRemove }) {
+export function Cart({ cart, onRemove, onConfirm}) {
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
   const orderTotal = cart.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -72,7 +72,7 @@ export function Cart({ cart, onRemove }) {
     This is a <span className="font-bold">carbon-neutral</span> delivery
   </Text>
           </div>
-          <Buttons className="w-full ">Confirm Order</Buttons>
+          <Buttons className="w-full " onClick={onConfirm}>Confirm Order</Buttons>
         </div>
       )}
     </aside>

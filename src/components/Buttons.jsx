@@ -11,7 +11,8 @@ export function Buttons({
   count,
   onIncrement,
   onDecrement,
-  className=""
+  className="",
+  ...props
 })
 {
   const base ="flex flex-row justify-center items-center transition-all duration-300 hover:cursor-pointer group";
@@ -52,7 +53,7 @@ export function Buttons({
         </button>
 
         <Text>{count}</Text>
-        <button type="button" onClick={onIncrement} className={circleBtn}>
+        <button type="button"  onClick={onIncrement} className={circleBtn}>
           <AddIcon className="w-3 h-3" />
         </button>
       </div>
@@ -62,7 +63,7 @@ export function Buttons({
   const buttonClasses = `${base} ${variants[variant] || variants.default} ${className}`;
 
   return (
-    <button type="button" onClick={onClick} className={buttonClasses}>
+    <button type="button" {...props} onClick={onClick} className={buttonClasses}>
       {icons[variant]}
       {children}
     </button>
