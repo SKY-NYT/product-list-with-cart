@@ -4,7 +4,8 @@ import './index.css'
 import { App } from './App'
 
 
-createRoot(document.getElementById('root')).render(
+const rootElement = document.getElementById('root');
+createRoot(rootElement!).render(
   <BrowserRouter>
     <App/>
   </BrowserRouter>

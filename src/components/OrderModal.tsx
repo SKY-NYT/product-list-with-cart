@@ -2,8 +2,16 @@ import { Text } from "./Text";
 import { Buttons } from "./Buttons";
 import OrderConfirmedIcon from "../assets/images/icon-order-confirmed.svg?react";
 import { useEffect } from "react";
+import type { CartItem } from "../types";
 
-export function OrderModal({ cart, total, onNewOrder }) {
+export interface OrderModalProps {
+  cart: CartItem[];
+  total: number;
+  onNewOrder: () => void;
+}
+
+
+export function OrderModal({ cart, total, onNewOrder }: OrderModalProps ) {
 
   useEffect(() => {
     document.body.style.overflow = "hidden";

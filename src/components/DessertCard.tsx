@@ -1,8 +1,10 @@
 import { Text } from "./Text";
 import { Buttons } from "./Buttons";
+import type { DessertCardProps } from "../types";
+  
 
 
-export function DessertCard({ product, quantity, onUpdate }) {
+export function DessertCard({ product, quantity, onUpdate }: DessertCardProps) {
 
   if (!product) return <div>Loading...</div>;
 

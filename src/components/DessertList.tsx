@@ -1,6 +1,9 @@
-import { DessertCard } from "../components/DessertCard";
-import { Text } from "../components/Text";
-export function DessertList({ data, cart, onUpdate }) {
+import { DessertCard } from "./DessertCard";
+import { Text } from "./Text";
+import type {  DessertListProps } from "../types";
+
+
+export function DessertList({ data, cart, onUpdate }: DessertListProps) {
   return (
     <div className="w-full lg:w-full">
       <Text variant="p1" className="mb-8">

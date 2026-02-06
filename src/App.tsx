@@ -1,11 +1,14 @@
+
 import { DessertList } from "./components/DessertList";
 import { Cart } from "./components/Cart";
 import { useState } from "react";
 import { OrderModal } from "./components/OrderModal";
-
+import type { Dessert, CartItem } from "./types";
 import data from "./data.json"
+
+
 export function App() {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState<CartItem[]>([]);
 
   const [isOrderConfirmed, setIsOrderConfirmed] = useState(false);
 
@@ -14,13 +17,12 @@ const handleConfirmOrder = () => {
   setIsOrderConfirmed(true);
 };
 
-  
- const handleStartNewOrder = () => {
-  setCart([]); 
-  setIsOrderConfirmed(false); 
-};
+  const handleStartNewOrder = () => {
+    setCart([]); 
+    setIsOrderConfirmed(false); 
+  };
  
- const handleUpdateQuantity = (product, delta) => {
+ const handleUpdateQuantity = (product: Dessert, delta: number) => {
   if (!product || !product.name) return;
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.name === product.name);
@@ -35,11 +37,10 @@ const handleConfirmOrder = () => {
           .filter((item) => item.quantity > 0); 
       }
 
-
      return delta > 0 ? [...prevCart, { ...product, quantity: 1 }] : prevCart;
     });
   };
-  const handleRemoveItem = (productName) => {
+  const handleRemoveItem = (productName: string) => {
     setCart((prev) => prev.filter((item) => item.name !== productName));
   };
 
@@ -64,4 +65,4 @@ const handleConfirmOrder = () => {
 )}
     </div>
   );
-}
+} 

@@ -1,8 +1,16 @@
+
 import { Text } from "./Text";
 import EmptyCartImage from "../assets/images/illustration-empty-cart.svg?react";
 import CarbonIcon from "../assets/images/icon-carbon-neutral.svg?react";
 import { Buttons } from "./Buttons";
-export function Cart({ cart, onRemove, onConfirm}) {
+import type { CartItem } from "../types";
+
+interface CartProps {
+  cart: CartItem[];
+  onRemove: (name: string) => void;
+  onConfirm: () => void;
+}
+export function Cart({ cart, onRemove, onConfirm}: CartProps) {
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
   const orderTotal = cart.reduce(
     (acc, item) => acc + item.price * item.quantity,
