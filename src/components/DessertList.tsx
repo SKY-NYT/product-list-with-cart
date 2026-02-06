@@ -1,6 +1,6 @@
 import { DessertCard } from "./DessertCard";
 import { Text } from "./Text";
-import type {  DessertListProps } from "../types";
+import type {  DessertListProps } from "../../types/types";
 
 
 export function DessertList({ data, cart, onUpdate }: DessertListProps) {

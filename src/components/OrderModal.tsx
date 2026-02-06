@@ -2,7 +2,7 @@ import { Text } from "./Text";
 import { Buttons } from "./Buttons";
 import OrderConfirmedIcon from "../assets/images/icon-order-confirmed.svg?react";
 import { useEffect } from "react";
-import type { CartItem } from "../types";
+import type { CartItem } from "../../types/types";
 
 export interface OrderModalProps {
   cart: CartItem[];

@@ -3,7 +3,7 @@ import { Text } from "./Text";
 import EmptyCartImage from "../assets/images/illustration-empty-cart.svg?react";
 import CarbonIcon from "../assets/images/icon-carbon-neutral.svg?react";
 import { Buttons } from "./Buttons";
-import type { CartItem } from "../types";
+import type { CartItem } from "../../types/types";
 
 interface CartProps {
   cart: CartItem[];

@@ -3,7 +3,7 @@ import { DessertList } from "./components/DessertList";
 import { Cart } from "./components/Cart";
 import { useState } from "react";
 import { OrderModal } from "./components/OrderModal";
-import type { Dessert, CartItem } from "./types";
+import type { Dessert, CartItem } from "../types/types";
 import data from "./data.json"
 
 

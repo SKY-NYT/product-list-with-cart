@@ -1,6 +1,6 @@
 import { Text } from "./Text";
 import { Buttons } from "./Buttons";
-import type { DessertCardProps } from "../types";
+import type { DessertCardProps } from "../../types/types";
   
 
 
