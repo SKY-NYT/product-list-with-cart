@@ -1,9 +1,11 @@
 import { DessertCard } from "./DessertCard";
 import { Text } from "./Text";
 import type {  DessertListProps } from "../types";
+import { useCart } from "../hooks/useCart";
 
 
-export function DessertList({ data, cart, onUpdate }: DessertListProps) {
+export function DessertList({ data }: DessertListProps) {
+  const { cart } = useCart();
   return (
     <div className="w-full lg:w-full">
       <Text variant="p1" className="mb-8">
@@ -18,7 +20,6 @@ export function DessertList({ data, cart, onUpdate }: DessertListProps) {
               key={item.name}
               product={item}
               quantity={quantity}
-              onUpdate={onUpdate}
             />
           );
         })}
@@ -26,3 +27,4 @@ export function DessertList({ data, cart, onUpdate }: DessertListProps) {
     </div>
   );
 }
+<q></q>

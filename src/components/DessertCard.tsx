@@ -1,10 +1,12 @@
 import { Text } from "./Text";
 import { Buttons } from "./Buttons";
 import type { DessertCardProps } from "../types";
+import { useCart } from "../hooks/useCart";
   
 
 
-export function DessertCard({ product, quantity, onUpdate }: DessertCardProps) {
+export function DessertCard({ product, quantity}: DessertCardProps) {
+  const { addItem, decrementItem } = useCart();
 
   if (!product) return <div>Loading...</div>;
 
@@ -26,12 +28,11 @@ export function DessertCard({ product, quantity, onUpdate }: DessertCardProps) {
             <Buttons
               variant="stepper"
               count={quantity}
-                onIncrement={() => onUpdate(product, 1)}
-              onDecrement={() => onUpdate(product, -1)}
+                onIncrement={() => { addItem(product) }}
+              onDecrement={() => { decrementItem(product.name) }}
             />
           ) : (
-            <Buttons variant="cartadd" onClick={() => {onUpdate(product, 1);
-}}>
+            <Buttons variant="cartadd" onClick={() => { addItem(product) }}>
               <Text variant="p4b">Add to Cart</Text>
             </Buttons>
           )}

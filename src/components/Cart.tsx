@@ -4,18 +4,23 @@ import EmptyCartImage from "../assets/images/illustration-empty-cart.svg?react";
 import CarbonIcon from "../assets/images/icon-carbon-neutral.svg?react";
 import { Buttons } from "./Buttons";
 import type { CartItem } from "../types";
+import { useCart } from "../hooks/useCart";
+import { useMemo } from "react";
 
 interface CartProps {
   cart: CartItem[];
-  onRemove: (name: string) => void;
   onConfirm: () => void;
 }
-export function Cart({ cart, onRemove, onConfirm}: CartProps) {
-  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
-  const orderTotal = cart.reduce(
-    (acc, item) => acc + item.price * item.quantity,
-    0,
-  );
+
+export function Cart({ cart, onConfirm}: CartProps) {
+  const { removeItem } = useCart();
+ const totalItems = useMemo(() => 
+    cart.reduce((acc, item) => acc + item.quantity, 0), 
+  [cart]);
+
+  const orderTotal = useMemo(() => 
+    cart.reduce((acc, item) => acc + item.price * item.quantity, 0),
+  [cart]);
   return (
     <aside className="flex flex-col bg-white rounded-xl gap-6  p-6 w-full lg:w-96 flex-none  lg:h-fit">
       <div>
@@ -63,7 +68,8 @@ export function Cart({ cart, onRemove, onConfirm}: CartProps) {
 
                 <Buttons
                   variant="remove"
-                  onClick={() => onRemove(item.name)}
+                  aria-label="Remove item"
+                  onClick={() => removeItem(item.name)}
                 ></Buttons>
               </li>
             ))}

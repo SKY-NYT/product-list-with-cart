@@ -23,12 +23,9 @@ export type OnUpdateQuantity = (product: Dessert, delta: number) => void;
 export interface DessertCardProps {
   product: Dessert;
   quantity: number;
-  onUpdate: OnUpdateQuantity;
 }
 
 
 export interface DessertListProps {
   data: Dessert[];
-  cart: CartItem[];
-  onUpdate: OnUpdateQuantity;
 }
