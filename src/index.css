@@ -8,13 +8,13 @@
 }
 
 @theme {
- /* Large layout sizes */
+ 
   --spacing-1440: 90rem;    
   --spacing-1216: 76rem;   
   --spacing-800: 50rem;     
   --spacing-384: 24rem;     
 
-  /* Spacing */
+
   --spacing-800: 4rem; 
   --spacing-500: 2.5rem;   
   --spacing-400: 2rem;      
@@ -25,11 +25,11 @@
   --spacing-50: 0.25rem; 
      
 
-  /* Special */
+
   --spacing-69: 4.3125rem;  
   
 
-  /* Colors */
+
   --color-preset-red: #C73B0F;
   --color-preset-green: #1EA575;
   --color-preset-rose-900: #260F08;
@@ -42,7 +42,7 @@
   --color-preset-white: #FFFFFF;
 
 
-  /* Typography Presets */
+ 
 --font-sans: "Red Hat Text";
   --font-weight-regular: 400;
   --font-weight-semibold: 600;

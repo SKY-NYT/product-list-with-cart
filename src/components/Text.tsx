@@ -1,15 +1,17 @@
-
-
 type TextVariant = "p1" | "p2" | "p3" | "p4" | "p4b";
 interface TextProps {
-  as?: React.ElementType; 
-  variant?: TextVariant; 
-  className?: string; 
+  as?: React.ElementType;
+  variant?: TextVariant;
+  className?: string;
   children: React.ReactNode;
-} 
+}
 
-export function Text({ as = "p", variant = "p3", className = "", children }: TextProps) {
-
+export function Text({
+  as = "p",
+  variant = "p3",
+  className = "",
+  children,
+}: TextProps) {
   const styles = {
     p1: "text-p1",
     p2: "text-p2 ",

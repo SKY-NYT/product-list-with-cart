@@ -1,11 +1,20 @@
+import { useMemo, memo } from "react";
 import { DessertCard } from "./DessertCard";
 import { Text } from "./Text";
-import type {  DessertListProps } from "../types";
+import type { DessertListProps } from "../types";
 import { useCart } from "../hooks/useCart";
 
-
-export function DessertList({ data }: DessertListProps) {
+export const DessertList = memo(function DessertList({
+  data,
+}: DessertListProps) {
   const { cart } = useCart();
+
+  const cartMap = useMemo(() => {
+    const map = new Map();
+    cart.forEach((item) => map.set(item.name, item.quantity));
+    return map;
+  }, [cart]);
+
   return (
     <div className="w-full lg:w-full">
       <Text variant="p1" className="mb-8">
@@ -13,18 +22,13 @@ export function DessertList({ data }: DessertListProps) {
       </Text>
       <div className="grid grid-cols-1 gap-y-6 md:grid-cols-3 md:gap-y-8 gap-x-6">
         {data.map((item) => {
-          const cartItem = cart.find((cartItem) => cartItem.name === item.name);
-          const quantity = cartItem ? cartItem.quantity : 0;
+          const quantity = cartMap.get(item.name) ?? 0;
+
           return (
-            <DessertCard
-              key={item.name}
-              product={item}
-              quantity={quantity}
-            />
+            <DessertCard key={item.name} product={item} quantity={quantity} />
           );
         })}
       </div>
     </div>
   );
-}
-<q></q>
+});

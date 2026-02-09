@@ -1,15 +1,21 @@
+import { memo, useCallback } from "react";
 import { Text } from "./Text";
 import { Buttons } from "./Buttons";
 import type { DessertCardProps } from "../types";
 import { useCart } from "../hooks/useCart";
-  
 
-
-export function DessertCard({ product, quantity}: DessertCardProps) {
+export const DessertCard = memo(function DessertCard({
+  product,
+  quantity,
+}: DessertCardProps) {
   const { addItem, decrementItem } = useCart();
+  const handleAdd = useCallback(() => {
+    addItem(product);
+  }, [addItem, product]);
 
-  if (!product) return <div>Loading...</div>;
-
+  const handleDecrement = useCallback(() => {
+    decrementItem(product.name);
+  }, [decrementItem, product.name]);
   return (
     <div className="flex flex-col gap-10 w-full h-auto">
       <div className="relative group">
@@ -28,11 +34,11 @@ export function DessertCard({ product, quantity}: DessertCardProps) {
             <Buttons
               variant="stepper"
               count={quantity}
-                onIncrement={() => { addItem(product) }}
-              onDecrement={() => { decrementItem(product.name) }}
+              onIncrement={handleAdd}
+              onDecrement={handleDecrement}
             />
           ) : (
-            <Buttons variant="cartadd" onClick={() => { addItem(product) }}>
+            <Buttons variant="cartadd" onClick={handleAdd}>
               <Text variant="p4b">Add to Cart</Text>
             </Buttons>
           )}
@@ -52,4 +58,4 @@ export function DessertCard({ product, quantity}: DessertCardProps) {
       </div>
     </div>
   );
-}
+});

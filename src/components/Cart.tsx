@@ -1,26 +1,35 @@
-
 import { Text } from "./Text";
 import EmptyCartImage from "../assets/images/illustration-empty-cart.svg?react";
 import CarbonIcon from "../assets/images/icon-carbon-neutral.svg?react";
 import { Buttons } from "./Buttons";
 import type { CartItem } from "../types";
 import { useCart } from "../hooks/useCart";
-import { useMemo } from "react";
+import { useMemo, memo, useCallback } from "react";
 
 interface CartProps {
   cart: CartItem[];
   onConfirm: () => void;
 }
 
-export function Cart({ cart, onConfirm}: CartProps) {
+export const Cart = memo(function Cart({ cart, onConfirm }: CartProps) {
   const { removeItem } = useCart();
- const totalItems = useMemo(() => 
-    cart.reduce((acc, item) => acc + item.quantity, 0), 
-  [cart]);
+  const totalItems = useMemo(
+    () => cart.reduce((acc, item) => acc + item.quantity, 0),
+    [cart],
+  );
 
-  const orderTotal = useMemo(() => 
-    cart.reduce((acc, item) => acc + item.price * item.quantity, 0),
-  [cart]);
+  const orderTotal = useMemo(
+    () => cart.reduce((acc, item) => acc + item.price * item.quantity, 0),
+    [cart],
+  );
+
+  const handleRemove = useCallback(
+    (name: string) => {
+      removeItem(name);
+    },
+    [removeItem],
+  );
+
   return (
     <aside className="flex flex-col bg-white rounded-xl gap-6  p-6 w-full lg:w-96 flex-none  lg:h-fit">
       <div>
@@ -50,11 +59,9 @@ export function Cart({ cart, onConfirm}: CartProps) {
                 className="flex justify-between items-center p-4"
               >
                 <div className="flex flex-col gap-2">
-                  <Text variant="p4b">
-                    {item.name}
-                  </Text>
+                  <Text variant="p4b">{item.name}</Text>
                   <div className="flex gap-4 items-center">
-                    <Text  variant="p4b"className="text-preset-red ">
+                    <Text variant="p4b" className="text-preset-red ">
                       {item.quantity}x
                     </Text>
                     <Text variant="p4" className="text-preset-rose-400">
@@ -69,12 +76,12 @@ export function Cart({ cart, onConfirm}: CartProps) {
                 <Buttons
                   variant="remove"
                   aria-label="Remove item"
-                  onClick={() => removeItem(item.name)}
+                  onClick={() => handleRemove(item.name)}
                 ></Buttons>
               </li>
             ))}
           </ul>
-          
+
           <div className="flex justify-between   items-center ">
             <Text variant="p4">Order Total</Text>
             <Text variant="p2">${orderTotal.toFixed(2)}</Text>
@@ -83,12 +90,15 @@ export function Cart({ cart, onConfirm}: CartProps) {
           <div className=" bg-preset-rose-50 p-4 rounded-lg flex flex-row items-center justify-center gap-2">
             <CarbonIcon />
             <Text variant="p4">
-    This is a <span className="font-bold">carbon-neutral</span> delivery
-  </Text>
+              This is a <span className="font-bold">carbon-neutral</span>{" "}
+              delivery
+            </Text>
           </div>
-          <Buttons className="w-full " onClick={onConfirm}>Confirm Order</Buttons>
+          <Buttons className="w-full " onClick={onConfirm}>
+            Confirm Order
+          </Buttons>
         </div>
       )}
     </aside>
   );
-}
+});
