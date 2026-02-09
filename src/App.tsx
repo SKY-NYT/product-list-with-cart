@@ -1,19 +1,25 @@
 
 import { DessertList } from "./components/DessertList";
 import { Cart } from "./components/Cart";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { OrderModal } from "./components/OrderModal";
 import type { Dessert, CartItem } from "../types/types";
 import data from "./data.json"
 
 
 export function App() {
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cart, setCart] = useState<CartItem[]>(() => {
+    const savedCart = localStorage.getItem("dessert_cart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("dessert_cart", JSON.stringify(cart));
+  }, [cart]);
 
   const [isOrderConfirmed, setIsOrderConfirmed] = useState(false);
 
 const handleConfirmOrder = () => {
-  console.log("CONFIRM CLICKED");
   setIsOrderConfirmed(true);
 };
 
