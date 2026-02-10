@@ -2,15 +2,18 @@ import { Text } from "./Text";
 import { Buttons } from "./Buttons";
 import OrderConfirmedIcon from "../assets/images/icon-order-confirmed.svg?react";
 import { useEffect } from "react";
-import type { CartItem } from "../types";
+import { useCart } from "../hooks/useCart";
+
 
 export interface OrderModalProps {
-  cart: CartItem[];
-  total: number;
   onNewOrder: () => void;
 }
 
-export function OrderModal({ cart, total, onNewOrder }: OrderModalProps) {
+export function OrderModal({ onNewOrder }: OrderModalProps) {
+  const { cart } = useCart(); 
+
+  const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -18,11 +21,16 @@ export function OrderModal({ cart, total, onNewOrder }: OrderModalProps) {
     };
   }, []);
 
+ const handleCloseModal = () => {
+  onNewOrder(); 
+}; 
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-end md:items-center justify-center z-50 p-0 md:p-4">
       <div className="bg-white w-148 rounded-t-3xl md:rounded-xl p-6  md:p-10 flex flex-col gap-8 h-fit overflow-y-auto">
         <div className="text-left">
-          <OrderConfirmedIcon className="mb-6" />
+          <div className="mb-6 flex justify-between"><OrderConfirmedIcon  /> <Buttons variant="remove" aria-label="Remove item" onClick={handleCloseModal}></Buttons> </div>
+          
           <Text variant="p1" className="mb-2  ">
             Order Confirmed
           </Text>

@@ -6,7 +6,7 @@ import { useCart } from "./hooks/useCart";
 import data from "./data.json";
 
 export function App() {
-  const { cart, clearCart } = useCart();
+  const { clearCart } = useCart();
   const [isOrderConfirmed, setIsOrderConfirmed] = useState(false);
 
   const handleConfirmOrder = useCallback(() => {
@@ -18,9 +18,6 @@ export function App() {
     setIsOrderConfirmed(false);
   }, [clearCart]);
 
-  const orderTotal = useMemo(() => {
-    return cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  }, [cart]);
 
   return (
     <div className="bg-preset-rose-50 ">
@@ -28,14 +25,12 @@ export function App() {
         <main className="flex flex-col lg:flex-row gap-8">
           <DessertList data={data} />
 
-          <Cart cart={cart} onConfirm={handleConfirmOrder} />
+          <Cart onConfirm={handleConfirmOrder} />
         </main>
       </div>
 
       {isOrderConfirmed && (
         <OrderModal
-          cart={cart}
-          total={orderTotal}
           onNewOrder={handleStartNewOrder}
         />
       )}

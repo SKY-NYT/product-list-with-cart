@@ -7,12 +7,12 @@ import { useCart } from "../hooks/useCart";
 import { useMemo, memo, useCallback } from "react";
 
 interface CartProps {
-  cart: CartItem[];
   onConfirm: () => void;
 }
 
-export const Cart = memo(function Cart({ cart, onConfirm }: CartProps) {
-  const { removeItem } = useCart();
+export const Cart = memo(function Cart({ onConfirm }: CartProps) {
+  const { cart, removeItem } = useCart();
+  
   const totalItems = useMemo(
     () => cart.reduce((acc, item) => acc + item.quantity, 0),
     [cart],

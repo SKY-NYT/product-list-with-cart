@@ -22,7 +22,6 @@ export type OnUpdateQuantity = (product: Dessert, delta: number) => void;
 
 export interface DessertCardProps {
   product: Dessert;
-  quantity: number;
 }
 
 

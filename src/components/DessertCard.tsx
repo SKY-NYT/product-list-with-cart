@@ -4,16 +4,16 @@ import { Buttons } from "./Buttons";
 import type { DessertCardProps } from "../types";
 import { useCart } from "../hooks/useCart";
 
-export const DessertCard = memo(function DessertCard({
-  product,
-  quantity,
-}: DessertCardProps) {
-  const { addItem, decrementItem } = useCart();
-  const handleAdd = useCallback(() => {
+export const DessertCard = memo(function DessertCard({ product }: DessertCardProps) {
+  const { addItem, decrementItem, cart } = useCart();
+
+  const quantity = cart.find(item => item.name === product.name)?.quantity ?? 0;
+  
+  const handleAddProduct = useCallback(() => {
     addItem(product);
   }, [addItem, product]);
 
-  const handleDecrement = useCallback(() => {
+  const handleRemoveProduct = useCallback(() => {
     decrementItem(product.name);
   }, [decrementItem, product.name]);
   return (
@@ -34,11 +34,11 @@ export const DessertCard = memo(function DessertCard({
             <Buttons
               variant="stepper"
               count={quantity}
-              onIncrement={handleAdd}
-              onDecrement={handleDecrement}
+              onIncrement={handleAddProduct}
+              onDecrement={handleRemoveProduct}
             />
           ) : (
-            <Buttons variant="cartadd" onClick={handleAdd}>
+            <Buttons variant="cartadd" onClick={handleAddProduct}>
               <Text variant="p4b">Add to Cart</Text>
             </Buttons>
           )}
